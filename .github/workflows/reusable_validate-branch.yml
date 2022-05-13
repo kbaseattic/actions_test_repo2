@@ -15,6 +15,6 @@ jobs:
         with:
           script: |
             const buildBranch = '${{ inputs.build_branch }}';
-            if ((buildBranch !== 'main') && ((buildBranch !== 'master')) {
+            if ((buildBranch !== 'main') && (buildBranch !== 'master')) {
               core.setFailed(`Releases must be built from the main or master branch, not "${buildBranch}"`)
             }
