@@ -8,6 +8,7 @@ on:
     types: [ published ]
 jobs:
   check-source-branch:
+    uses: ubuntu-latest
     if: github.event.release.target_commitish != 'master' && github.event.release.target_commitish != 'main'
     run: echo "Releases must be built from master/main branch"; exit 1
   validate-release-tag:
