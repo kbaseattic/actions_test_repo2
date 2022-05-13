@@ -8,9 +8,11 @@ on:
     types: [ published ]
 jobs:
   check-source-branch:
-    uses: ubuntu-latest
-    if: github.event.release.target_commitish != 'master' && github.event.release.target_commitish != 'main'
-    run: echo "Releases must be built from master/main branch"; exit 1
+    runs-on: ubuntu-latest
+    steps:
+      name: Check Source Branch
+      if: github.event.release.target_commitish != 'master' && github.event.release.target_commitish != 'main'
+      run: echo "Releases must be built from master/main branch"; exit 1
   validate-release-tag:
     uses: kbase/.github/.github/workflows/reusable_validate-release-tag.yml@main
     with:
