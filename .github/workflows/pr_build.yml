@@ -1,5 +1,5 @@
 ---
-name: PR to develop opened
+name: Pull Request Build & Tag
 on:
   pull_request:
     branches:
