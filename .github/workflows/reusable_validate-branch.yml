@@ -1,5 +1,5 @@
 ---
-name: Ensure releases are built from main/master branch.
+name: Validate release branch.
 on:
   workflow_call:
     inputs:
