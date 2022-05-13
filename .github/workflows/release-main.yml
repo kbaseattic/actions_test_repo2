@@ -1,5 +1,5 @@
 ---
-name: Release2 - Build & Push Image
+name: Release - Build & Push Image
 on:
   release:
     branches:
