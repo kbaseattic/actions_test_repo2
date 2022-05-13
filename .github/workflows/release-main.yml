@@ -8,7 +8,7 @@ on:
     types: [ published ]
 jobs:
   check-source-branch:
-    uses: .github/workflows/reusable_validate-branch.yml
+    uses: ./.github/workflows/reusable_validate-branch.yml
     with:
       build_branch: '${{ github.event.release.target_commitish }}'
   validate-release-tag:
