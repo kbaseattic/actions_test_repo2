@@ -1,0 +1,37 @@
+---
+name: PR to develop opened
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+      - master
+    types:
+      - opened
+      - reopened
+      - synchronize
+jobs:
+  build-develop-open:
+    if: github.head_ref = 'develop' && github.event.pull_request.merged == false
+    uses: kbase/.github/.github/workflows/reusable_build.yml@main
+  build-main-open:
+    if: (github.head_ref = 'main' || github.head_ref = 'master') && github.event.pull_request.merged == false
+    uses: kbase/.github/.github/workflows/reusable_build-push.yml@main
+    with:
+      name: '${{ github.event.repository.name }}'
+      tags: pr-${{ github.event.number }}
+    secrets: inherit
+  build-develop-merge:
+    if: github.head_ref = 'develop' && github.event.pull_request.merged == true
+    uses: kbase/.github/.github/workflows/reusable_build-push.yml@main
+    with:
+      name: '${{ github.event.repository.name }}-develop'
+      tags: pr-${{ github.event.number }},latest
+    secrets: inherit
+  build-main-merge:
+    if: (github.head_ref = 'main' || github.head_ref = 'master') && github.event.pull_request.merged == true
+    uses: kbase/.github/.github/workflows/reusable_build-push.yml@main
+    with:
+      name: '${{ github.event.repository.name }}'
+      tags: pr-${{ github.event.number }},latest-rc
+    secrets: inherit
