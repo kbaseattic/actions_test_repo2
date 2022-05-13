@@ -1,5 +1,5 @@
 ---
-name: Ensure releases are build from main/master branch.
+name: Ensure releases are built from main/master branch.
 on:
   workflow_call:
     inputs:
@@ -7,10 +7,10 @@ on:
         required: true
         type: string
 jobs:
-  ensure-semver:
+  check-branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Validate that releases are build from main/master
+      - name: Validate build branch
         uses: actions/github-script@v6
         with:
           script: |
