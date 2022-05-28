@@ -27,7 +27,7 @@ jobs:
 #            make compile;
 #          else
 #            echo "Not a kb-sdk dependent app, skipping."
-          fi
+#          fi
 
       - name: Build without push
         uses: docker/build-push-action@v2
