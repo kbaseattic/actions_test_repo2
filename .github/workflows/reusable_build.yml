@@ -29,10 +29,26 @@ jobs:
             echo "Not a kb-sdk dependent app, skipping."
           fi
 
-      - name: Build without push
-        uses: docker/build-push-action@v2
+      - name: Build an image from Dockerfile
+        run: |
+          docker build -t trivy-test:${{ github.sha }} .
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
         with:
-          context: .
-          file: ./Dockerfile
-          pull: true
-          push: false
+          image-ref: 'trivy-test:${{ github.sha }}'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+#      - name: Build without push
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: .
+#          file: ./Dockerfile
+#          pull: true
+#          push: false
