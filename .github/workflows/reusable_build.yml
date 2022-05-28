@@ -31,6 +31,7 @@ jobs:
 
       - name: Build an image from Dockerfile
         run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE;
           docker build -t ghcr.io/kbase/actions_test_repo2:${{ github.sha }} .
 
       - name: Run Trivy vulnerability scanner
