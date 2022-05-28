@@ -1,4 +1,4 @@
-FROM bitnami/minideb:latest
+FROM debian:stable
 
 # Build arguments passed into the docker command for image metadata
 ARG BUILD_DATE
@@ -6,8 +6,7 @@ ARG COMMIT
 ARG BRANCH
 
 # Install Base Packages
-RUN \
- install_packages \
+RUN apt-get update; apt-get install -y \
 	bash \
 	curl \
     git \
