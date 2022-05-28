@@ -29,6 +29,19 @@ jobs:
 #            echo "Not a kb-sdk dependent app, skipping."
 #          fi
 
+      - name: Create github action tags from image tags
+        id: tags
+        uses: actions/github-script@v6
+        with:
+          result-encoding: string
+          script: |
+            const tags = '${{ inputs.tags }}'.split(',');
+            const username = '${{ github.event.repository.owner.login }}';
+            const repoName = '${{ inputs.name }}';
+            return tags.map((tag) => {
+              return `ghcr.io/${username}/${repoName}:${tag}`;
+            }).join(',');
+
       - name: Build without push
         uses: docker/build-push-action@v2
         with:
@@ -36,6 +49,12 @@ jobs:
           file: ./Dockerfile
           pull: true
           push: false
+          build-args: |
+            BUILD_DATE=${{ steps.date.outputs.date }}
+            VCS_REF=${{ github.sha }}
+            BRANCH='${{ github.ref }}'
+            TAG='${{ github.ref }}'
+          tags: '${{ steps.tags.outputs.result }}'
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
