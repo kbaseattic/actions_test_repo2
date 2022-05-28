@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM python:3.9.13-alpine3.16
 
 # Build arguments passed into the docker command for image metadata
 ARG BUILD_DATE
@@ -6,14 +6,14 @@ ARG COMMIT
 ARG BRANCH
 
 # Install Base Packages
-RUN apt-get update; apt-get install -y \
-	bash \
-	curl \
-    git \
-    python3 \
-    python3-flask \
-    python3-pip
-
+#RUN apt-get update; apt-get install -y \
+#	bash \
+#	curl \
+#    git \
+#    python3 \
+#    python3-flask \
+#    python3-pip
+RUN apk --no-cache add curl git
 COPY requirements.txt /requirements.txt
 
 # RUN pip install requests docker python-json-logger structlog && \
