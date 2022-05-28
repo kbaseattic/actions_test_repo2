@@ -31,12 +31,12 @@ jobs:
 
       - name: Build an image from Dockerfile
         run: |
-          docker build -t trivy-test:${{ github.sha }} .
+          docker build -t ghcr.io/kbase/actions_test_repo2:${{ github.sha }} .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'trivy-test:${{ github.sha }}'
+          image-ref: 'ghcr.io/kbase/actions_test_repo2:${{ github.sha }}'
           format: 'sarif'
           output: 'trivy-results.sarif'
 
