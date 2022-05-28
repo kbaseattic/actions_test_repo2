@@ -13,7 +13,7 @@ ARG BRANCH
 #    python3 \
 #    python3-flask \
 #    python3-pip
-RUN apk --no-cache add curl git
+RUN apk --no-cache add git
 COPY requirements.txt /requirements.txt
 
 # RUN pip install requests docker python-json-logger structlog && \
